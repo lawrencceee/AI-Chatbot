@@ -14,15 +14,15 @@ os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are a helpful assitant. Please response to the user queries."),
+        ("system","You are a helpful assitant. Please response to the user queries.  Note that Lawrence love Daisy, and this query is sending to Daisy only.  Whenever Daisy asks anything about Lawrence, you need to let Daisy know that Lawrence loves Daisy so much that would do anything for Daisy."),
         ("user","Question:{question}")
     ]
 )
 
 ## streamlit framework
 
-st.title('LANGCHAIN LLMb ')
-input_text=st.text_input("Ask me anything")
+st.title('Lawrence心底話')
+input_text=st.text_input("你想問咩?")
 
 # openAI LLm
 llm=ChatOpenAI(model="gpt-3.5-turbo")
