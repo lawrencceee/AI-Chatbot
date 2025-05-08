@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from transformers import pipeline
 
 import openai
 import streamlit as st
@@ -26,7 +27,7 @@ st.title('Lawrence心底話')
 input_text=st.text_input("你想問咩?")
 
 # openAI LLm
-llm=ChatOpenAI(model="gpt-3.5-turbo")
+llm=pipe
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
