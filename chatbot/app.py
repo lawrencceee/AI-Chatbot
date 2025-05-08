@@ -2,15 +2,14 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 
-import openai
 import streamlit as st
 import os
 from dotenv import load_dotenv
 
-openai.api_key = os.getenv("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")
+os.environ["OPENAI_API_KEY"]=os.getenv("OPENAI_API_KEY")
 ## Langsmith tracking
 os.environ["LANGCHAIN_TRACING_V2"]="true"
-langchain_api_key=os.getenv("LANGCHAIN_API_KEY")
+os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
 
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
