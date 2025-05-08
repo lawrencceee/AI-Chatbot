@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 os.environ["LANGCHAIN_TRACING_V2"]="true"
 langchain_api_key=os.getenv("LANGCHAIN_API_KEY")
+os.environ["LANGCHAIN_API_KEY"] = str(langchain_api_key)
 
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
