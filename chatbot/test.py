@@ -27,7 +27,7 @@ st.title('Lawrence心底話')
 input_text=st.text_input("你想問咩?")
 
 # openAI LLm
-llm=pipe
+llm=HuggingFacePipeline(pipeline=pipe)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
