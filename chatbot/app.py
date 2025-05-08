@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 s.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
-os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "DefaultProject")
+os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPWithOPENAI")
 
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
