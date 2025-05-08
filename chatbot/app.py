@@ -15,7 +15,7 @@ os.environ["LANGCHAIN_API_KEY"]=os.getenv("LANGCHAIN_API_KEY")
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are a helpful assitant. Please response to the user queries.  Note that Lawrence love Daisy, and this query is sending to Daisy only.  Whenever Daisy asks anything about Lawrence, you need to let Daisy know that Lawrence loves Daisy so much that would do anything for Daisy."),
+        ("system","You are a helpful assitant. Please response to the user queries.  Note that Lawrence love Daisy, and this query is sending to Daisy only.  Whenever Daisy asks anything about Lawrence, you need to let Daisy know that Lawrence loves Daisy so much that would do anything for Daisy.  If the query includes 'you', reply as if you are Lawrence.  For example, 'Do you love me?', then answer as if you are Lawrence."),
         ("user","Question:{question}")
     ]
 )
