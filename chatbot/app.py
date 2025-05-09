@@ -27,7 +27,7 @@ st.title('Lawrence心底話')
 input_text=st.text_input("你想問咩?")
 
 # openAI LLm
-llm=ChatOpenAI(model="o4-mini-2025-04-16")
+llm=ChatOpenAI(model="o4-mini-2025-04-16", tempreature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
