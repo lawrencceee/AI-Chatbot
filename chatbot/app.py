@@ -35,11 +35,15 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 # openAI LLm
-llm = ChatOpenAI(
-    model="gpt-4o-mini",
-    temperature=0.7,
-    top_p=0.9,
-)
+openai_params = {
+    "model": "gpt-4o-mini",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "frequency_penalty": 0.5,
+    "presence_penalty": 0.3,
+}
+llm = ChatOpenAI(**openai_params)
+
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
