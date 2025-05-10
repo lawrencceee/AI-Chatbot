@@ -49,5 +49,5 @@ if user_input:
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant", avatar="icon.png"):
+    with st.chat_message("assistant", avatar="./icon.png"):
         st.markdown(response)
