@@ -37,17 +37,17 @@ chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar="🤖"):
+    with st.chat_message(msg["role"]):
         st.markdown(msg["content"])
 
 # If user sends a message
 if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input}, avatar="🦖")
-    with st.chat_message("user"):
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user", avatar=""):
         st.markdown(user_input)
 
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar=st.image("icon.png")):
         st.markdown(response)
