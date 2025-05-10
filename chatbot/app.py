@@ -38,22 +38,20 @@ chain=prompt|llm|output_parser
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
         if msg["role"] == "user":
-            # If it's the user, just show the text, no image
+        with st.chat_message("user", avatar=""):  # Remove avatar for user
             st.markdown(msg["content"])
-        elif msg["role"] == "assistant":
-            # If it's the assistant, show the response with an image
-            st.image("icon.png", width=40)  # Use your own image URL here
+    elif msg["role"] == "assistant":
+        with st.chat_message("assistant", avatar="icon.png"):  # Custom image for assistant
             st.markdown(msg["content"])
 
 # If user sends a message
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user"):
-        st.markdown(user_input)  # User message with no image
+    with st.chat_message("user", avatar=""):  # No avatar
+        st.markdown(user_input)
 
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant"):
-        st.image("icon.png", width=40)  # Use your own image URL here
+    with st.chat_message("assistant", avatar="icon.png"):  # Custom icon
         st.markdown(response)
