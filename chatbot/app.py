@@ -41,7 +41,7 @@ for msg in st.session_state.messages:
         with st.chat_message("user", avatar=""):  # No avatar for user
             st.markdown(msg["content"])
     elif msg["role"] == "assistant":
-        with st.chat_message("assistant", avatar="icon.png"):  # Custom assistant icon
+        with st.chat_message("assistant", avatar="https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png"):  # Custom assistant icon
             st.markdown(msg["content"])
 
 # If user sends a message
@@ -53,5 +53,5 @@ if user_input:
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant", avatar="icon.png"):  # Custom assistant icon
+    with st.chat_message("assistant", avatar="https://upload.wikimedia.org/wikipedia/commons/7/70/User_icon_BLACK-01.png"):  # Custom assistant icon
         st.markdown(response)
