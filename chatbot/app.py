@@ -37,7 +37,7 @@ chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
+    with st.chat_message(msg["role"], avatar=st.image("icon.png")):
         st.markdown(msg["content"])
 
 # If user sends a message
