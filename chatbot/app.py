@@ -23,7 +23,7 @@ prompt=ChatPromptTemplate.from_messages(
 
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
-st.markdown("<h1> style='text-align: center;'>Lawrence 心底話 💕</h1>, unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>, unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
