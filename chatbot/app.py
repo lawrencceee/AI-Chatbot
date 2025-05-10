@@ -36,12 +36,11 @@ output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
-        if msg["role"] == "user":
-        with st.chat_message("user", avatar=""):  # Remove avatar for user
+    if msg["role"] == "user":
+        with st.chat_message("user", avatar=""):
             st.markdown(msg["content"])
     elif msg["role"] == "assistant":
-        with st.chat_message("assistant", avatar="icon.png"):  # Custom image for assistant
+        with st.chat_message("assistant", avatar="icon.png"):
             st.markdown(msg["content"])
 
 # If user sends a message
