@@ -46,7 +46,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input:
+if user_input := st.chat_input("同我傾計<3"):
     # Store and display user message with avatar
     user_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png'
     st.session_state.messages.append({
