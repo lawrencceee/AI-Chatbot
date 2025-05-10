@@ -39,10 +39,6 @@ llm = ChatOpenAI(
     model="gpt-4o-mini",
     temperature=0.7,
     top_p=0.9,
-    openai_api_params={
-        "frequency_penalty": 0.5,
-        "presence_penalty": 0.3
-    }
 )
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
