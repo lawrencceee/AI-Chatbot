@@ -35,22 +35,23 @@ llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
+# Display past messages
 for msg in st.session_state.messages:
     if msg["role"] == "user":
-        with st.chat_message("user", avatar=""):
+        with st.chat_message("user", avatar=""):  # No avatar for user
             st.markdown(msg["content"])
     elif msg["role"] == "assistant":
-        with st.chat_message("assistant", avatar="icon.png"):
+        with st.chat_message("assistant", avatar="icon.png"):  # Custom assistant icon
             st.markdown(msg["content"])
 
 # If user sends a message
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user", avatar=""):  # No avatar
+    with st.chat_message("user", avatar=""):  # No avatar for user
         st.markdown(user_input)
 
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant", avatar="icon.png"):  # Custom icon
+    with st.chat_message("assistant", avatar="icon.png"):  # Custom assistant icon
         st.markdown(response)
