@@ -33,9 +33,6 @@ llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
-
-user_input = st.text_input("Type your message:", key="user_input")
-
 # Display past messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
