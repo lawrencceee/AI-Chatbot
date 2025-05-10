@@ -46,9 +46,9 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.chat_input("同我傾計<3"):
+if user_input := st.chat_input("Say something"):
     # Store and display user message with avatar
-    user_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png'
+    user_avatar = "👩🏻"
     st.session_state.messages.append({
         "role": "user",
         "content": user_input,
@@ -59,7 +59,7 @@ if user_input := st.chat_input("同我傾計<3"):
 
     # Generate response
     response = chain.invoke({"question": user_input})
-    assistant_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png'
+    assistant_avatar = "👦🏻"
     st.session_state.messages.append({
         "role": "assistant",
         "content": response,
