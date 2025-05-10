@@ -59,6 +59,9 @@ if user_input:
     with st.chat_message("user", avatar=user_avatar):
         st.markdown(user_input)
 
+    # Example assistant response (replace with real LLM)
+    response = f"You said: {user_input}"
+    
     # Add assistant response to session state
     st.session_state.messages.append({
         "role": "assistant",
