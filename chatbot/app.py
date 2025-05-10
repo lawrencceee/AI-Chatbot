@@ -39,7 +39,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.text_input("你想問咩?":)
+if user_input := st.text_input("你想問咩?"):
     # Store and display user message with avatar
     user_avatar = "👩🏻"
     st.session_state.messages.append({
