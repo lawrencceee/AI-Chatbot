@@ -23,7 +23,7 @@ prompt=ChatPromptTemplate.from_messages(
 
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
-st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💬</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -31,18 +31,18 @@ if "messages" not in st.session_state:
 user_input=st.text_input("你想問咩?")
 
 # openAI LLm
-llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
+llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9, frequency_peanlty=0.5, presence_peanlty=0.3)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"]):
+    with st.chat_message(msg["role"], avatar="🤖"):
         st.markdown(msg["content"])
 
 # If user sends a message
 if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append({"role": "user", "content": user_input}, avatar="🦖")
     with st.chat_message("user"):
         st.markdown(user_input)
 
