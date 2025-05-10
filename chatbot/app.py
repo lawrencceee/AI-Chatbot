@@ -37,17 +37,28 @@ chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar=msg[avatar]):
-        st.write(msg["content"])
+    with st.chat_message(msg["role"], avatar=msg["avatar"]):
+        st.markdown(msg["content"])
 
 # If user sends a message
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user", avatar="👩🏻"):
+if user_input := st.chat_input("Say something"):
+    # Store and display user message with avatar
+    user_avatar = "👩🏻"
+    st.session_state.messages.append({
+        "role": "user",
+        "content": user_input,
+        "avatar": user_avatar
+    })
+    with st.chat_message("user", avatar=user_avatar):
         st.markdown(user_input)
 
+    # Generate response
     response = chain.invoke({"question": user_input})
-    st.session_state.messages.append({"role": "assistant", "content": response})
-
-    with st.chat_message("assistant", avatar="👦🏻"):
+    assistant_avatar = "👦🏻"
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": response,
+        "avatar": assistant_avatar
+    })
+    with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
