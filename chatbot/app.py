@@ -70,6 +70,9 @@ if user_input:
     with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
 
+    # Trigger re-run to clear the input box
+    st.experimental_rerun()
+
 # --- Display past messages (in order) ---
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
