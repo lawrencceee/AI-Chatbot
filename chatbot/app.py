@@ -15,6 +15,8 @@ os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPW
 user_avatar = "https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"
 assistant_avatar = "https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"
 
+## user input
+user_input = st.chat_input("你想問咩？")
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
