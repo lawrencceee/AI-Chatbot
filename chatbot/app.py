@@ -23,13 +23,6 @@ prompt=ChatPromptTemplate.from_messages(
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
 st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsafe_allow_html=True)
-hide_streamlit_style = """
-            <style>
-            #MainMenu {visibility: hidden;}
-            footer {visibility: hidden;}
-            </style>
-            """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -58,7 +51,7 @@ if user_input := st.chat_input():
 
     # Generate response
     response = chain.invoke({"question": user_input})
-    assistant_avatar = "👦🏻"
+    assistant_avatar = st.image('icon.png')
     st.session_state.messages.append({
         "role": "assistant",
         "content": response,
