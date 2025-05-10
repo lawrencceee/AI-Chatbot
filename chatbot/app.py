@@ -28,7 +28,6 @@ st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💬</h1>", unsa
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-st.title('Lawrence心底話')
 user_input=st.text_input("你想問咩?")
 
 # openAI LLm
@@ -36,19 +35,25 @@ llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
-# Display past messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"]):
-        st.markdown(msg["content"])
+        if msg["role"] == "user":
+            # If it's the user, just show the text, no image
+            st.markdown(msg["content"])
+        elif msg["role"] == "assistant":
+            # If it's the assistant, show the response with an image
+            st.image("icon.png", width=40)  # Use your own image URL here
+            st.markdown(msg["content"])
 
 # If user sends a message
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
     with st.chat_message("user"):
-        st.markdown(user_input)
+        st.markdown(user_input)  # User message with no image
 
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
     with st.chat_message("assistant"):
+        st.image("icon.png", width=40)  # Use your own image URL here
         st.markdown(response)
