@@ -41,7 +41,7 @@ for msg in st.session_state.messages:
 # If user sends a message
 if user_input := st.chat_input():
     # Store and display user message with avatar
-    user_avatar = "👩🏻"
+    user_avatar = "https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"
     st.session_state.messages.append({
         "role": "user",
         "content": user_input,
