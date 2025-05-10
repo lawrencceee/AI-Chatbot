@@ -28,8 +28,6 @@ st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsa
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-user_input=st.text_input("你想問咩?")
-
 # openAI LLm
 llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
@@ -41,7 +39,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.chat_input("Say something"):
+if user_input := st.text_input("你想問咩?")
     # Store and display user message with avatar
     user_avatar = "👩🏻"
     st.session_state.messages.append({
