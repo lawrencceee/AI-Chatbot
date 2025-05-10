@@ -12,11 +12,7 @@ os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
 os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPWithOPENAI")
 
-user_avatar = "https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"
-assistant_avatar = "https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"
-
-## user input
-user_input = st.chat_input("你想問咩？")
+lawrence_avatar = "icon.png"
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
@@ -26,6 +22,7 @@ prompt=ChatPromptTemplate.from_messages(
     )
 
 ## streamlit framework
+st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
 st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsafe_allow_html=True)
 
 if "messages" not in st.session_state:
@@ -46,21 +43,28 @@ chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        with st.chat_message("user", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"):  # No avatar for user
-            st.markdown(msg["content"])
-    elif msg["role"] == "assistant":
-        with st.chat_message("assistant", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"):  # Custom assistant icon
-            st.markdown(msg["content"])
+    with st.chat_message(msg["role"], avatar=msg["avatar"]):
+        st.markdown(msg["content"])
 
 # If user sends a message
-if user_input:
-    st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"):  # No avatar for user
+if user_input := st.chat_input("同我傾計<3"):
+    # Store and display user message with avatar
+    user_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png'
+    st.session_state.messages.append({
+        "role": "user",
+        "content": user_input,
+        "avatar": user_avatar
+    })
+    with st.chat_message("user", avatar=user_avatar):
         st.markdown(user_input)
 
+    # Generate response
     response = chain.invoke({"question": user_input})
-    st.session_state.messages.append({"role": "assistant", "content": response})
-
-    with st.chat_message("assistant", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"):  # Custom assistant icon
+    assistant_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png'
+    st.session_state.messages.append({
+        "role": "assistant",
+        "content": response,
+        "avatar": assistant_avatar
+    })
+    with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
