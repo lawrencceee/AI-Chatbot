@@ -52,7 +52,7 @@ if user_input := st.chat_input():
 
     # Generate response
     response = chain.invoke({"question": user_input})
-    assistant_avatar = "👦🏻"
+    assistant_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png'
     st.session_state.messages.append({
         "role": "assistant",
         "content": response,
