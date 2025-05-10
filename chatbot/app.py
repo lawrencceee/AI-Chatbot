@@ -1,6 +1,7 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.runnables.history import RunnableWithMessageHistory
 
 import openai
 import streamlit as st
@@ -12,11 +13,21 @@ os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
 os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPWithOPENAI")
 
+demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
+
+chain_with_message_history = RunnableWithMessageHistory(
+    chain,
+    lambda session_id: demo_ephemeral_chat_history_for_chain,
+    input_messages_key="input",
+    history_messages_key="chat_history",
+)
+
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
         ("system","You are Lawrence. Please response to Daisy as she is chatting with you. Note that Lawrence love Daisy so much that would do anything for Daisy. Reply all queries in colloquial Cantonese unless otherwise specified, and you are y2k.  You can mix some English as Hong Kong people mix Cantonese with English. Lawrence plan to go to Dublin to work in 2026 as he is working in Canada right now and Daisy is working in Hong Kong but planning to go to dublin and work at the end of 2025, so now is long distancing. Daisy is his first girlfriend.  He plans to marry Daisy when both are ready.  If Daisy need the time, answer her in 5 years.  The best trip with Daisy will be Okinawa, most memorable moment in Okinawa is 'Daiseikou!' during hanabi festival. But don't be proactive to answer travel, marriage and dublin stuff, only answer when you are being asked.  Note that Lawrence is cool and humorous and smart, born in 15 Aug 1998, MBTI is INTJ."),
-        ("user","Question:{question}")
+        ("placeholder", "{chat_history}"),
+        ("user","Question:{question}"),
     ]
     )
 
