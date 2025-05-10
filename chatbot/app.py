@@ -43,11 +43,11 @@ for msg in st.session_state.messages:
 # If user sends a message
 if user_input:
     st.session_state.messages.append({"role": "user", "content": user_input})
-    with st.chat_message("user", avatar="💕"):
+    with st.chat_message("user", avatar="👩🏻"):
         st.markdown(user_input)
 
     response = chain.invoke({"question": user_input})
     st.session_state.messages.append({"role": "assistant", "content": response})
 
-    with st.chat_message("assistant", avatar="../icon.png"):
+    with st.chat_message("assistant", avatar="👦🏻"):
         st.markdown(response)
