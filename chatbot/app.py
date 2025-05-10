@@ -37,9 +37,6 @@ user_avatar = "👩🏻"
 assistant_avatar = "👦🏻"
 
 user_input = st.text_input("Type your message:", key="user_input")
-# Display past messages
-# --- Input at the top ---
-user_input = st.text_input("Type your message:", key="user_input")
 
 # --- Process new input ---
 if user_input:
