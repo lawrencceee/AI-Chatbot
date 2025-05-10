@@ -12,7 +12,7 @@ os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
 os.environ["LANGCHAIN_TRACING_V2"] = st.secrets["LANGCHAIN_TRACING_V2"]
 os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPWithOPENAI")
 
-lawrence_avatar = "icon.png"
+user_input = st.chat_input("同我傾計<3")
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
@@ -47,7 +47,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.chat_input("同我傾計<3"):
+if user_input:
     # Store and display user message with avatar
     user_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png'
     st.session_state.messages.append({
