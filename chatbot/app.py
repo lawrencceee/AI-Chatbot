@@ -43,40 +43,23 @@ llm = ChatOpenAI(
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
-# --- Chat input for new message using st.chat_input() ---
-user_input = st.chat_input("Type your message")
+# Display past messages
+for msg in st.session_state.messages:
+    if msg["role"] == "user":
+        with st.chat_message("user", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"):  # No avatar for user
+            st.markdown(msg["content"])
+    elif msg["role"] == "assistant":
+        with st.chat_message("assistant", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"):  # Custom assistant icon
+            st.markdown(msg["content"])
 
-# --- Process new input and add to message history ---
+# If user sends a message
 if user_input:
-    # Add user message to session state
-    st.session_state.messages.append({
-        "role": "user",
-        "content": user_input,
-        "avatar": user_avatar
-    })
-    
-    # Display user message
-    with st.chat_message("user", avatar=user_avatar):
+    st.session_state.messages.append({"role": "user", "content": user_input})
+    with st.chat_message("user", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png"):  # No avatar for user
         st.markdown(user_input)
 
-    # Example assistant response (replace with real LLM)
-    response = f"You said: {user_input}"
-    
-    # Add assistant response to session state
-    st.session_state.messages.append({
-        "role": "assistant",
-        "content": response,
-        "avatar": assistant_avatar
-    })
-    
-    # Display assistant message
-    with st.chat_message("assistant", avatar=assistant_avatar):
+    response = chain.invoke({"question": user_input})
+    st.session_state.messages.append({"role": "assistant", "content": response})
+
+    with st.chat_message("assistant", avatar="https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png"):  # Custom assistant icon
         st.markdown(response)
-
-    # Trigger re-run to clear the input box
-    st.experimental_rerun()
-
-# --- Display past messages (in order) ---
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar=msg["avatar"]):
-        st.markdown(msg["content"])
