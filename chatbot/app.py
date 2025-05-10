@@ -34,7 +34,7 @@ output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
 # Display past messages
-for msg in st.session_state.messages():
+for msg in st.session_state.messages(""):
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
         st.markdown(msg["content"])
 
