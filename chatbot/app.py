@@ -29,7 +29,7 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 st.title('Lawrence心底話')
-input_text=st.text_input("你想問咩?")
+user_input=st.text_input("你想問咩?")
 
 # openAI LLm
 llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
