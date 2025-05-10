@@ -34,12 +34,12 @@ output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
 # Display past messages
-for msg in st.session_state.messages(""):
+for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.chat_input:
+if user_input := st.chat_input():
     # Store and display user message with avatar
     user_avatar = "👩🏻"
     st.session_state.messages.append({
