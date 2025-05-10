@@ -43,8 +43,8 @@ llm = ChatOpenAI(
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
-# --- Text input for new message ---
-user_input = st.text_input("Type your message", key="user_input")
+# --- Chat input for new message using st.chat_input() ---
+user_input = st.chat_input("Type your message")
 
 # --- Process new input and add to message history ---
 if user_input:
@@ -59,9 +59,6 @@ if user_input:
     with st.chat_message("user", avatar=user_avatar):
         st.markdown(user_input)
 
-    # Example response, you can replace this with an LLM call
-    response = f"You said: {user_input}"
-
     # Add assistant response to session state
     st.session_state.messages.append({
         "role": "assistant",
@@ -73,10 +70,7 @@ if user_input:
     with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
 
-    # Trigger re-run so input is cleared
-    st.experimental_rerun()
-
-# --- Display past messages (in the correct order) ---
+# --- Display past messages (in order) ---
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
         st.markdown(msg["content"])
