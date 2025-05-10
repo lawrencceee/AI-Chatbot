@@ -33,13 +33,18 @@ llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
-user_avatar = "👩🏻"
-assistant_avatar = "👦🏻"
 
 user_input = st.text_input("Type your message:", key="user_input")
 
-# --- Process new input ---
-if user_input:
+# Display past messages
+for msg in st.session_state.messages:
+    with st.chat_message(msg["role"], avatar=msg["avatar"]):
+        st.markdown(msg["content"])
+
+# If user sends a message
+if user_input := st.chat_input():
+    # Store and display user message with avatar
+    user_avatar = "👩🏻"
     st.session_state.messages.append({
         "role": "user",
         "content": user_input,
@@ -48,9 +53,9 @@ if user_input:
     with st.chat_message("user", avatar=user_avatar):
         st.markdown(user_input)
 
-    # Replace with your actual model/response logic
-    response = f"You said: {user_input}"
-
+    # Generate response
+    response = chain.invoke({"question": user_input})
+    assistant_avatar = "👦🏻"
     st.session_state.messages.append({
         "role": "assistant",
         "content": response,
@@ -58,12 +63,3 @@ if user_input:
     })
     with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
-
-    # Clear the input box
-    st.experimental_rerun()
-
-# --- Display all past messages below the input ---
-st.markdown("---")  # optional separator
-for msg in st.session_state.messages:
-    with st.chat_message(msg["role"], avatar=msg["avatar"]):
-        st.markdown(msg["content"])
