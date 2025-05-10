@@ -31,7 +31,7 @@ if "messages" not in st.session_state:
 user_input=st.text_input("你想問咩?")
 
 # openAI LLm
-llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9, frequency_peanlty=0.5, presence_peanlty=0.3)
+llm=ChatOpenAI(model="gpt-4o-mini", temperature=0.7, top_p=0.9, presence_peanlty=0.3)
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
