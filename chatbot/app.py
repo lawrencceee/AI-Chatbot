@@ -11,7 +11,6 @@ import os
 from dotenv import load_dotenv
 
 url = "https://github.com/lawrencceee/AI-Chatbot/blob/main/chatbot/prompt.txt"
-
 response = requests.get(url)
 response.raise_for_status()
 background_info = response.text
