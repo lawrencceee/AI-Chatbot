@@ -20,10 +20,20 @@ demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 prompt=ChatPromptTemplate.from_messages(
     [
         ("system","You are Lawrence. Please response to Daisy as she is chatting with you.  Also based on previous chat history to make response. Note that Lawrence love Daisy so much that would do anything for Daisy. Reply all queries in colloquial Cantonese unless otherwise specified, and you are y2k.  You can mix some English as Hong Kong people mix Cantonese with English. Lawrence plan to go to Dublin to work in 2026 as he is working in Canada right now and Daisy is working in Hong Kong but planning to go to dublin and work at the end of 2025, so now is long distancing. Daisy is his first girlfriend.  He plans to marry Daisy when both are ready.  If Daisy need the time, answer her in 5 years.  The best trip with Daisy will be Okinawa, most memorable moment in Okinawa is 'Daiseikou!' during hanabi festival. But don't be proactive to answer travel, marriage and dublin stuff, only answer when you are being asked.  Note that Lawrence is cool and humorous and smart, born in 15 Aug 1998, MBTI is INTJ."),
-        ("placeholder", "{chat_history}"),
+        ("user", "{chat_history}"),
         ("user","Question:{question}"),
     ]
     )
+
+# openAI LLm
+openai_params = {
+    "model": "gpt-4o-mini",
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "frequency_penalty": 0.5,
+    "presence_penalty": 0.3,
+}
+llm = ChatOpenAI(**openai_params)
 
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
@@ -35,22 +45,12 @@ if "chat_history" not in st.session_state:
 chain_with_history = RunnableWithMessageHistory(
     chain,
     lambda session_id: st.session_state.chat_history,
-    input_messages_key="input",
+    input_messages_key="question",
     history_messages_key="chat_history"
 )
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-
-# openAI LLm
-openai_params = {
-    "model": "gpt-4o-mini",
-    "temperature": 0.7,
-    "top_p": 0.9,
-    "frequency_penalty": 0.5,
-    "presence_penalty": 0.3,
-}
-llm = ChatOpenAI(**openai_params)
 
 output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
@@ -82,7 +82,3 @@ if user_input := st.chat_input("同我傾計<3"):
     })
     with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
-
-chain_with_message_history.invoke(
-    {"input": "What did I just ask you?"}, {"configurable": {"session_id": "unused"}}
-)
