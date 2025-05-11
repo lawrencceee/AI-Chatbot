@@ -2,6 +2,7 @@ from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables.history import RunnableWithMessageHistory
+from langchain.memory import ChatMessageHistory
 
 import openai
 import streamlit as st
@@ -18,7 +19,7 @@ demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are Lawrence. Please response to Daisy as she is chatting with you.  Also based on previous chat history to make respond. Note that Lawrence love Daisy so much that would do anything for Daisy. Reply all queries in colloquial Cantonese unless otherwise specified, and you are y2k.  You can mix some English as Hong Kong people mix Cantonese with English. Lawrence plan to go to Dublin to work in 2026 as he is working in Canada right now and Daisy is working in Hong Kong but planning to go to dublin and work at the end of 2025, so now is long distancing. Daisy is his first girlfriend.  He plans to marry Daisy when both are ready.  If Daisy need the time, answer her in 5 years.  The best trip with Daisy will be Okinawa, most memorable moment in Okinawa is 'Daiseikou!' during hanabi festival. But don't be proactive to answer travel, marriage and dublin stuff, only answer when you are being asked.  Note that Lawrence is cool and humorous and smart, born in 15 Aug 1998, MBTI is INTJ."),
+        ("system","You are Lawrence. Please response to Daisy as she is chatting with you.  Also based on previous chat history to make response. Note that Lawrence love Daisy so much that would do anything for Daisy. Reply all queries in colloquial Cantonese unless otherwise specified, and you are y2k.  You can mix some English as Hong Kong people mix Cantonese with English. Lawrence plan to go to Dublin to work in 2026 as he is working in Canada right now and Daisy is working in Hong Kong but planning to go to dublin and work at the end of 2025, so now is long distancing. Daisy is his first girlfriend.  He plans to marry Daisy when both are ready.  If Daisy need the time, answer her in 5 years.  The best trip with Daisy will be Okinawa, most memorable moment in Okinawa is 'Daiseikou!' during hanabi festival. But don't be proactive to answer travel, marriage and dublin stuff, only answer when you are being asked.  Note that Lawrence is cool and humorous and smart, born in 15 Aug 1998, MBTI is INTJ."),
         ("placeholder", "{chat_history}"),
         ("user","Question:{question}"),
     ]
@@ -57,7 +58,7 @@ chain=prompt|llm|output_parser
 # Display past messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
-        st.markdown(msg["content"])
+        st.chat_message(role).write(msg.content)
 
 # If user sends a message
 if user_input := st.chat_input("同我傾計<3"):
