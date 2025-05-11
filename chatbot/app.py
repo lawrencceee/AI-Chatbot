@@ -34,6 +34,7 @@ openai_params = {
     "presence_penalty": 0.3,
 }
 llm = ChatOpenAI(**openai_params)
+output_parser=StrOutputParser()
 chain=prompt|llm|output_parser
 
 ## streamlit framework
@@ -53,7 +54,7 @@ chain_with_history = RunnableWithMessageHistory(
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-output_parser=StrOutputParser()
+
 
 # Display past messages
 for msg in st.session_state.messages:
