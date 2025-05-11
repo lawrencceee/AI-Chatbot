@@ -73,7 +73,7 @@ if user_input := st.chat_input("同我傾計<3"):
         st.markdown(user_input)
 
     # Generate response
-    response = chain.invoke({"question": user_input})
+    response = chain_with_history.invoke({"question": user_input}, config={"configurable": {"session_id": "default"}})
     assistant_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/icon.png'
     st.session_state.messages.append({
         "role": "assistant",
