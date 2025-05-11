@@ -59,7 +59,7 @@ if "messages" not in st.session_state:
 # Display past messages
 for msg in st.session_state.messages:
     with st.chat_message(msg["role"], avatar=msg["avatar"]):
-        st.chat_message(role).write(msg.content)
+        st.markdown(msg["content"])
 
 # If user sends a message
 if user_input := st.chat_input("同我傾計<3"):
