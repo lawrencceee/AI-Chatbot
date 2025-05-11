@@ -15,13 +15,6 @@ os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPW
 
 demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 
-chain_with_message_history = RunnableWithMessageHistory(
-    chain,
-    lambda session_id: demo_ephemeral_chat_history_for_chain,
-    input_messages_key="input",
-    history_messages_key="chat_history",
-)
-
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
@@ -34,6 +27,16 @@ prompt=ChatPromptTemplate.from_messages(
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
 st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsafe_allow_html=True)
+
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = ChatMessageHistory()
+
+chain_with_history = RunnableWithMessageHistory(
+    chain,
+    lambda session_id: st.session_state.chat_history,
+    input_messages_key="input",
+    history_messages_key="chat_history"
+)
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -78,3 +81,7 @@ if user_input := st.chat_input("同我傾計<3"):
     })
     with st.chat_message("assistant", avatar=assistant_avatar):
         st.markdown(response)
+
+chain_with_message_history.invoke(
+    {"input": "What did I just ask you?"}, {"configurable": {"session_id": "unused"}}
+)
