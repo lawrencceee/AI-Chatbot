@@ -16,13 +16,12 @@ os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPW
 
 demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 
-with open("prompt.txt", "r", encoding="utf-8") as f:
-    background_info = f.read()
+background_info = open("prompt.txt","r")
 
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system",background_info),
+        ("system",background_info.read()),
         ("user","Question:{question}"),
     ]
     )
