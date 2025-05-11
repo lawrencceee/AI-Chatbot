@@ -34,6 +34,7 @@ openai_params = {
     "presence_penalty": 0.3,
 }
 llm = ChatOpenAI(**openai_params)
+chain=prompt|llm|output_parser
 
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
@@ -53,7 +54,6 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 output_parser=StrOutputParser()
-chain=prompt|llm|output_parser
 
 # Display past messages
 for msg in st.session_state.messages:
