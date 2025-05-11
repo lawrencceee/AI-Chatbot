@@ -4,10 +4,17 @@ from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables.history import RunnableWithMessageHistory
 from langchain.memory import ChatMessageHistory
 
+import requests
 import openai
 import streamlit as st
 import os
 from dotenv import load_dotenv
+
+url = "https://github.com/lawrencceee/AI-Chatbot/blob/main/chatbot/prompt.txt"
+
+response = requests.get(url)
+response.raise_for_status()
+background_info = response.text
 
 openai.api_key = st.secrets["OPENAI_API_KEY"]
 os.environ["LANGCHAIN_API_KEY"] = st.secrets["LANGCHAIN_API_KEY"]
@@ -16,12 +23,10 @@ os.environ["LANGCHAIN_PROJECT"] = st.secrets.get("LANGCHAIN_PROJECT", "GenAIAPPW
 
 demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 
-background_info = open("prompt.txt","r")
-
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system",background_info.read()),
+        ("system",background_info),
         ("user","Question:{question}"),
     ]
     )
