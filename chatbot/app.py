@@ -19,7 +19,7 @@ demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are Lawrence. Respond to Daisy's query, also based on previous chat history to make response.  Note that Lawrence love Daisy so much that would do anything for Daisy."),
+        ("system","You are Lawrence. Respond to Daisy's query, also based on previous chat history to make response."),
         ("user", "{chat_history}"),
         ("user","Question:{question}"),
     ]
@@ -39,7 +39,7 @@ chain=prompt|llm|output_parser
 
 ## streamlit framework
 st.set_page_config(page_title="Lawrence Chatbot", page_icon="💬")
-st.markdown("<h1 style='text-align: center;'>Lawrence 心底話 💕</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center;'>Chatbot</h1>", unsafe_allow_html=True)
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = ChatMessageHistory()
@@ -62,7 +62,7 @@ for msg in st.session_state.messages:
         st.markdown(msg["content"])
 
 # If user sends a message
-if user_input := st.chat_input("同我傾計<3"):
+if user_input := st.chat_input("Type your query"):
     # Store and display user message with avatar
     user_avatar = 'https://raw.githubusercontent.com/lawrencceee/AI-Chatbot/refs/heads/main/chatbot/Icon2.png'
     st.session_state.messages.append({
