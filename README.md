@@ -1,1 +1,1 @@
-Created a chatbot with OpenAI API that can respond based on the previous chat record, and integrated with streamlit for visualization.
+Created a chatbot with OpenAI API that can respond based on the previous chat record, and integrated with streamlit for visualization.  Used langchain to track the tokenization, cost and also the response of the chatbot.
