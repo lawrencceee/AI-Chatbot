@@ -1,7 +1,7 @@
 Created a chatbot with OpenAI API that:
 - respond based on the previous chat record;
 - integrated with streamlit for visualization;
-- used langchain to track the tokenization, cost and also the response of the chatbot;
+- used LangChain & LangServe to track the tokenization, cost and also the response of the chatbot;
 - customoized layout such as changing the icon and the orientation of the text.
 
 Screenshot from the app on streamlit (e.g. telling the chatbot regarding eating an apple):
