@@ -6,3 +6,4 @@ Created a chatbot with OpenAI API that:
 
 Screenshot from the app on streamlit (e.g. telling the chatbot regarding eating an apple):
 ![image](https://github.com/user-attachments/assets/12ab0418-6fa9-4995-a47a-c1f3b314941d)
+Link: https://demoaichatbot.streamlit.app/
