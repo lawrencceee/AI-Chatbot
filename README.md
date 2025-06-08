@@ -1,5 +1,5 @@
 Created a chatbot with OpenAI API that:
-- respond based on the previous chat record;
+- respond based on the previous chat record with ConversationalRetrievalChain;
 - integrated with streamlit for visualization;
 - used LangChain & LangServe to track the tokenization, cost and also the response of the chatbot;
 - customoized layout such as changing the icon and the orientation of the text.
