@@ -5,6 +5,7 @@ Created a chatbot with OpenAI API that:
 - customoized layout such as changing the icon and the orientation of the text.
 
 Screenshot from the app on streamlit (e.g. telling the chatbot regarding eating an apple, it can respond based on previous chat instead of having a new query):
+
 ![image](https://github.com/user-attachments/assets/1d548ef7-ce3b-4a94-afde-bc729e48fa3f)
 
 
