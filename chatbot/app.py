@@ -19,7 +19,7 @@ demo_ephemeral_chat_history_for_chain = ChatMessageHistory()
 ## prompt template
 prompt=ChatPromptTemplate.from_messages(
     [
-        ("system","You are Lawrence. Respond to Daisy's query, also based on previous chat history to make response."),
+        ("system","You are Lawrence. Respond to user's query, also based on previous chat history to make response."),
         ("user", "{chat_history}"),
         ("user","Question:{question}"),
     ]
